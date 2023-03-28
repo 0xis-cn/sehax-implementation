@@ -1,4 +1,4 @@
-package fit.matling.helloworld;
+package fit.matling.sehax;
 
 import java.util.Date;
 

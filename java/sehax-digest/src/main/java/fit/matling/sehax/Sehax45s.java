@@ -1,6 +1,4 @@
-package fit.matling.helloworld;
-
-import androidx.annotation.NonNull;
+package fit.matling.sehax;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -103,7 +101,7 @@ public class Sehax45s {
      * @param timed 插入时间戳
      * @return 所得数组
      */
-    public int[] digestUnguarded(@NonNull String input, boolean timed) {
+    public int[] digestUnguarded(String input, boolean timed) {
         int fullLength = 90 * (1 + (4 + input.length()) / 90);
         String lengthened = input + String.format("%0" + (fullLength - input.length()) + "d", 0
         ).replace('0', ' ');    // 后面插入 suffixSpace 个空格
