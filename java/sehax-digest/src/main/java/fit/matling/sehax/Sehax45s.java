@@ -1,22 +1,22 @@
 package fit.matling.sehax;
 
-import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
 
 public class Sehax45s {
-    private static final int[] gfbiao = new int[]{0, 11, 27, 19, 43, 3, 35, 1, 47, 13, 46, 18, 36, 40, 17, 34, 15, 4, 29, 8, 14, 9, 44, 6, 7, 48, 26, 21, 33, 45, 2, 24, 31, 30, 20, 41, 38, 32, 5, 28, 39, 10, 25, 16, 12, 42, 22, 37, 23,};
-    private static final int[] igfbiao0 = new int[]{3, 1, 4, 0, 2, 5, 3, 3, 2, 3, 5, 0, 6, 1, 2, 2, 6, 2, 1, 0, 4, 3, 6, 6, 4, 6, 3, 0, 5, 2, 4, 4, 5, 4, 2, 0, 1, 6, 5, 5, 1, 5, 6, 0, 3, 4, 1, 1, 3};
-    private static final int[] igfbiao1 = new int[]{4, 0, 2, 5, 3, 3, 2, 3, 5, 0, 6, 1, 2, 2, 6, 2, 1, 0, 4, 3, 6, 6, 4, 6, 3, 0, 5, 2, 4, 4, 5, 4, 2, 0, 1, 6, 5, 5, 1, 5, 6, 0, 3, 4, 1, 1, 3, 1, 4};
-    private static final Map<Character, Integer> x2se = ImmutableMap.<Character, Integer>builder(
-    ).put('b', 30).put('p', 18).put('m', 23).put('w', 38).put('j', 3).put('q', 21).put(
-            'x', 22).put('y', 46).put('n', 10).put('z', 34).put('D', 5).put('s', 2).put('r', 1).put(
-            'H', 17).put('N', 26).put('l', 25).put('d', 28).put('t', 4).put('g', 47).put('k', 40).put(
-            'h', 48).put('4', 16).put('5', 8).put('v', 32).put('F', 24).put('7', 45).put('B', 12).put(
-            'c', 43).put('f', 11).put('u', 27).put('a', 31).put('o', 42).put('e', 20).put('E', 44).put(
-            'A', 37).put('Y', 19).put('L', 39).put('6', 14).put('2', 35).put('T', 9).put('8', 36).put(
-            '3', 13).put('V', 15).put('1', 6).put('i', 41).put(' ', 33).put(',', 29).put('.', 7).put(
-            '9', 21).put('0', 9).build();
+    private static final int[] gfbiao = new int[]{
+        0, 11, 27, 19, 43, 3, 35, 1, 47, 13, 46, 18, 36, 40, 17, 34, 15, 4, 29, 8, 14, 9, 44, 6, 7,
+        48, 26, 21, 33, 45, 2, 24, 31, 30, 20, 41, 38, 32, 5, 28, 39, 10, 25, 16, 12, 42, 22, 37, 23};
+    private static final int[] igfbiao0 = new int[]{
+        3, 1, 4, 0, 2, 5, 3, 3, 2, 3, 5, 0, 6, 1, 2, 2, 6, 2, 1, 0, 4, 3, 6, 6, 4,
+        6, 3, 0, 5, 2, 4, 4, 5, 4, 2, 0, 1, 6, 5, 5, 1, 5, 6, 0, 3, 4, 1, 1, 3};
+    private static final int[] igfbiao1 = new int[]{
+        4, 0, 2, 5, 3, 3, 2, 3, 5, 0, 6, 1, 2, 2, 6, 2, 1, 0, 4, 3, 6, 6, 4, 6, 3,
+        0, 5, 2, 4, 4, 5, 4, 2, 0, 1, 6, 5, 5, 1, 5, 6, 0, 3, 4, 1, 1, 3, 1, 4};
+    private static final int[] x2se = new int[]{
+        33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33,
+        33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 29, 33, 7,  33, 9,  6,  35, 13, 16, 8,  14, 45, 36, 21, 33, 33, 33, 33, 33, 33,
+        33, 37, 12, 33, 5,  44, 24, 33, 17, 33, 33, 33, 39, 33, 26, 33, 33, 33, 33, 33, 9,  33, 15, 33, 33, 19, 33, 33, 33, 33, 33, 33,
+        33, 31, 30, 43, 28, 20, 11, 47, 48, 41, 3,  40, 25, 23, 10, 42, 18, 21, 1,  2,  4,  27, 32, 38, 22, 46, 34, 33, 33, 33, 33, 33};
     private static final int[] enc1 = new int[]{6,
             1, 6, 5, 5, 1, 5, 1, 0, 3, 5, 2, 4, 6, 5, 3, 5, 6, 5, 1, 3, 3, 5, 0, 2, 3, 6, 0, 2, 3, 0, 3, 5, 0, 4, 0,
             2, 6, 4, 0, 5, 6, 5, 4, 6, 0, 0, 2, 5, 5, 2, 5, 4, 1, 0, 2, 5, 4, 0, 6, 6, 4, 1, 2, 0, 6, 4, 0, 2, 6, 3,
@@ -109,7 +109,7 @@ public class Sehax45s {
         for (int i = 0; i < fullLength; i++) {
             int i2 = 2 * i, i21 = 2 * i + 1, character;
             try {
-                character = x2se.get(lengthened.charAt(i));
+                character = x2se[lengthened.charAt(i)];
             } catch (NullPointerException e) {
                 character = 33;
             }
