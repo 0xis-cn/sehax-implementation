@@ -28,7 +28,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>App</mainClass>
+              <mainClass>fit.matling.sehax.App</mainClass>
             </manifest>
           </archive>
         </configuration>
