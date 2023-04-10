@@ -1,6 +1,9 @@
 package fit.matling.sehax;
 
 import java.util.Map;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.IOException;
 
 public class Sehax45s {
     private static final int[] gfbiao = new int[]{
@@ -94,6 +97,20 @@ public class Sehax45s {
         return (gfbiao[sh] + gfbiao[x1 * 7 + x2]) % 48;
     }
 
+
+    public int[] digestUnguarded(String input, boolean timed) throws IOException {
+		return digestUnguarded(new StringReader(input), timed);
+	}
+
+	private static void fillSeventh(int pos, int code, int cycle, int[] left, int[] right) {
+		int lpos = elmult(code, enc1[pos + cycle], enc1[pos + 1 + cycle]);
+		int rpos = elmult(code, enc2[pos + cycle], enc2[pos + 1 + cycle]);
+		left [pos + 1]	= igfbiao0[lpos];
+		left [pos + 2]	= igfbiao1[lpos];
+		right[pos + 1]	= igfbiao0[rpos];
+		right[pos + 2]	= igfbiao1[rpos];
+	}
+
     /**
      * 计算 SEHAX45 的主流程，无卫语句。.
      *
@@ -101,51 +118,47 @@ public class Sehax45s {
      * @param timed 插入时间戳
      * @return 所得数组
      */
-    public int[] digestUnguarded(String input, boolean timed) {
-        int fullLength = 90 * (1 + (4 + input.length()) / 90);
-        String lengthened = input + String.format("%0" + (fullLength - input.length()) + "d", 0
-        ).replace('0', ' ');    // 后面插入 suffixSpace 个空格
-        int[] left = new int[2 * fullLength], right = new int[2 * fullLength];
-        for (int i = 0; i < fullLength; i++) {
-            int i2 = 2 * i, i21 = 2 * i + 1, character;
-            try {
-                character = x2se[lengthened.charAt(i)];
-            } catch (NullPointerException e) {
-                character = 33;
-            }
-            int leftPos = elmult(character, enc1[i2 % 360], enc1[i21 % 360]);
-            int rightPos = elmult(character, enc2[i2 % 360], enc2[i21 % 360]);
-            left[i2] = igfbiao0[leftPos];
-            left[i21] = igfbiao1[leftPos];
-            right[i2] = igfbiao0[rightPos];
-            right[i21] = igfbiao1[rightPos];
-        }
+    public int[] digestUnguarded(Reader input, boolean timed) throws IOException {
+		int[] left = new int[182], right = new int[182];
+		int remainder = 0, cycle = 0;
+reading:
+		while (true) {
+			for (int i = 0; i < 180; i += 2) {
+				int character = input.read();
+				if (character == -1) {
+					remainder = i;
+					break reading;
+				}
+				fillSeventh(i, x2se[character], cycle, left, right);
+			}
+			cycle = 180 ^ cycle;
+		}
+		input.close();
         if (timed) {
             int[] stamp = new SeptDate().sept();
             for (int i = 0; i < 8; ++i) {
-                int pos = 2 * input.length() + i;
-                left[pos] = stamp[i] = right[pos] = stamp[i];
+                left [remainder + 1] += stamp[i];
+				right[remainder + 1] += stamp[i];
+				if (++remainder == 180)
+					remainder = 0;
             }
         }
-        if (left.length > 180) {
-            for (int i = left.length - 1; i >= 180; i--) {
-                left[i - 180] += left[i];
-                right[i - 180] += right[i];
-            }
-            for (int i = 0; i < 180; i++) {
-                left[i] %= 7;
-                right[i] %= 7;
-            }
-        }
-        int[] leftIter = new int[182], rightIter = new int[182];
-        System.arraycopy(left, 0, leftIter, 1, 180);
-        System.arraycopy(right, 0, rightIter, 1, 180);
-        leftIter = new AutoIter(leftIter).repeat(0, 12).getData();
-        rightIter = new AutoIter(rightIter).repeat(1, 12).getData();
-        rightIter[0] = rightIter[180];      // 使下方可用模数来取
+		if (remainder != 0) {
+			while (remainder != 180) {
+				fillSeventh(remainder, 33, cycle, left, right);
+				remainder += 2;
+			}
+		}
+		for (int i = 1; i < 181; i++) {
+			left[i] %= 7;
+			right[i] %= 7;
+		}
+        left  = new AutoIter(left ).repeat(0, 12).getData();
+        right = new AutoIter(right).repeat(1, 12).getData();
+        right[0] = right[180];      		// 使下方可用模数来取
         int[] outIter = new int[182];
         for (int i = 1; i < 181; i++)
-            outIter[i] = (rightIter[(11 + i) % 180] + leftIter[i]) % 7;
+            outIter[i] = (right[(11 + i) % 180] + left[i]) % 7;
         outIter = new AutoIter(outIter).repeat(2, 12).getData();
         int[] result = new int[45];
         for (int i = 0; i < 45; i++)
