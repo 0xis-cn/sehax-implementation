@@ -18,7 +18,7 @@ public class Base48Reader extends Reader
 	}
     static char[] base48Pair(int val)
     {
-        final String consonants = " ,bpmwjqxynzDsrHNldtgkh45vF7Bcf.";
+        final String consonants = "bpmwjqxynzDsrHNldtgkh45vF7Bcf ,.";
         final String vowels = "uaoeEAYL62T83V1i";
         if ((val & 512) != 0) {
             return new char[]{ vowels.charAt((val & 480) >> 5), consonants.charAt(val & 31) };
